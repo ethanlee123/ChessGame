@@ -9,7 +9,7 @@ public class ChessGame extends Game {
   private List<Piece> pieces = new LinkedList<Piece>();
   private ChessGui gui;
 
-  ChessGame() {
+  public ChessGame() {
     board = new ChessBoard(8, 8);
     createPieces();
     setPiecesOnTiles(board);
@@ -92,6 +92,4 @@ public class ChessGame extends Game {
     // TODO Auto-generated method stub
     
   }
-
-
 }

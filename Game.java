@@ -2,7 +2,6 @@ package A00990753;
 
 import java.util.ArrayList;
 import java.util.List;
-
 abstract class Game {
   GameStatus gameStatus;
   Board board;
@@ -10,7 +9,7 @@ abstract class Game {
   Player playersTurn;
   List<Player> listOfPlayers;
 
-  Game() {
+  protected Game() {
     this.gameStatus = GameStatus.ACTIVE;
     this.latestResult = new Result();
     this.listOfPlayers = new ArrayList<Player>();
@@ -35,5 +34,4 @@ abstract class Game {
   public Player getPlayersTurn() {
     return this.playersTurn;
   }
-
 }
