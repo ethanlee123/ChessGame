@@ -86,4 +86,12 @@ public class ChessGame extends Game {
   public List<Piece> getPieces() {
     return this.pieces;
   }
+
+  @Override
+  void resignFromGame(Player... player) {
+    // TODO Auto-generated method stub
+    
+  }
+
+
 }
