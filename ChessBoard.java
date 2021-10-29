@@ -34,12 +34,16 @@ public class ChessBoard extends Board{
       ColorSide fromThisTileColor = fromThisTile.getPiece().getColor();
 
       // If tile to move to is unoccupied
-      if (toThisTile.getPiece() == null || 
-          fromThisTileColor != toThisTile.getPiece().getColor()) { 
-        // If tile to move to has a piece of the opposite color.
-        if (fromThisTileColor != toThisTile.getPiece().getColor()) {
-          toThisTile.getPiece().kill();
-        }
+      if (toThisTile.getPiece() == null) { 
+
+        toThisTile.setPiece(fromThisTile.getPiece());
+        fromThisTile.removePiece();
+        return true;
+      }
+
+      // If tile to move to has a piece of the opposite color.
+      if (fromThisTileColor != toThisTile.getPiece().getColor()) {
+        toThisTile.getPiece().kill();
         toThisTile.setPiece(fromThisTile.getPiece());
         fromThisTile.removePiece();
         return true;
