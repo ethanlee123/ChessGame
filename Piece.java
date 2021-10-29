@@ -28,4 +28,7 @@ public abstract class Piece implements Movement {
   public void kill() {
     this.isKilled = true;
   }
+  public boolean isKilled() {
+    return this.isKilled;
+  }
 }
