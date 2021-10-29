@@ -7,4 +7,10 @@ public class Queen extends Piece{
   public Queen(ColorSide color, int row, int column) {
     super(color, row, column, "Q");
   }
+
+  @Override
+  public void isValidMovement(int[][] start, int[][] end) {
+    // TODO Auto-generated method stub
+    
+  }
 }

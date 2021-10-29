@@ -7,5 +7,11 @@ public class Bishop extends Piece{
   public Bishop(ColorSide color, int row, int column) {
     super(color, row, column, "B");
   }
+
+  @Override
+  public void isValidMovement(int[][] start, int[][] end) {
+    // TODO Auto-generated method stub
+    
+  }
 }
 

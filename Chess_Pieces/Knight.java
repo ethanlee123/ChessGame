@@ -7,5 +7,11 @@ public class Knight extends Piece{
   public Knight(ColorSide color, int row, int column) {
     super(color, row, column, "N");
   }
+
+  @Override
+  public void isValidMovement(int[][] start, int[][] end) {
+    // TODO Auto-generated method stub
+    
+  }
 }
 

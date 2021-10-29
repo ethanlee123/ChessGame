@@ -8,5 +8,11 @@ public class Rook extends Piece{
   public Rook(ColorSide color, int row, int column) {
     super(color, row, column, "R");
   }
+
+  @Override
+  public void isValidMovement(int[][] start, int[][] end) {
+    // TODO Auto-generated method stub
+    
+  }
   
 }
