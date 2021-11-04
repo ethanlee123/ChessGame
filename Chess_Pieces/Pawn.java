@@ -54,11 +54,12 @@ public class Pawn extends Piece{
       twoTilesAhead = board.getTile(
         fromThisTile.getRow() - 2, fromThisTile.getColumn());
     }
-    // Changes corresponding validMoves indexed value to 1, if
-    // oneTileAhead is unoccupied or if piece of opposite color occupies.
+    // If tile ahead by one is unoccupied, set corresponding index to 1
     if (oneTileAhead != null && oneTileAhead.getPiece() == null) {
       validMoves[oneTileAhead.getRow()][oneTileAhead.getColumn()] = 1;
     }
+    // If tile ahead by two is unoccupied AND this is our first move
+    // AND no piece is blocking, set corresponding index to 1
     if (isFirstMove == true && oneTileAhead.getPiece() == null &&
       twoTilesAhead != null && twoTilesAhead.getPiece() == null) {
       validMoves[twoTilesAhead.getRow()][twoTilesAhead.getColumn()] = 1;
