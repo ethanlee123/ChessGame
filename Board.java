@@ -1,6 +1,6 @@
 package A00990753;
 
-abstract class Board {
+public abstract class Board {
   protected Tile[][] tiles;
   
   Board(int rows, int columns) {
@@ -13,4 +13,5 @@ abstract class Board {
     return this.tiles;
   }
   abstract public boolean movePiece(Tile fromThisTile, Tile currentlySelectedTile);
+  abstract public boolean isValidPieceMovement(Tile fromThisTile, Tile currentlySelectedTile);
 }

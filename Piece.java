@@ -13,6 +13,7 @@ public abstract class Piece implements Movement {
     this.defaultColumn = column;
     this.name = name;
   }
+
   public int getDefaultRow() {
     return this.defaultRow;
   }

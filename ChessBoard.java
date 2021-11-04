@@ -13,9 +13,9 @@ public class ChessBoard extends Board{
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < columns; j++) {
         if (isWhiteTile) {
-          tiles[i][j] = new Tile(null, ColorSide.WHITE);
+          tiles[i][j] = new Tile(null, ColorSide.WHITE, i, j);
         } else {
-          tiles[i][j] = new Tile(null, ColorSide.BLACK);
+          tiles[i][j] = new Tile(null, ColorSide.BLACK, i, j);
         }
         isWhiteTile = !isWhiteTile;
       }
@@ -48,8 +48,15 @@ public class ChessBoard extends Board{
         fromThisTile.removePiece();
         return true;
       }
-
     }
     return false;
+  }
+
+  public boolean isValidPieceMovement(Tile fromThisTile, Tile toThisTile) {
+    if (fromThisTile == null || toThisTile == null) {
+      return false;
+    }
+    Piece pieceToMove = fromThisTile.getPiece();
+    return pieceToMove.isValidMovement(this, fromThisTile, toThisTile);
   }
 }

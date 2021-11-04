@@ -1,7 +1,9 @@
 package A00990753.Chess_Pieces;
 
+import A00990753.Board;
 import A00990753.ColorSide;
 import A00990753.Piece;
+import A00990753.Tile;
 
 public class Pawn extends Piece{
   private boolean isFirstMove = true;
@@ -11,9 +13,14 @@ public class Pawn extends Piece{
   }
 
   @Override
-  public void isValidMovement(int[][] start, int[][] end) {
-    // TODO Auto-generated method stub
-    
+  public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
+    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
+
+    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+      this.firstMoveDone();
+      return true;
+    }
+    return false;
   }
 
   public boolean promoteTo(Piece piece) {
@@ -22,6 +29,41 @@ public class Pawn extends Piece{
   }
 
   public void firstMoveDone() {
-    this.isFirstMove = true;
+    this.isFirstMove = false;
   }
+
+  @Override
+  public int[][] generateValidMovements(Board board, Tile fromThisTile) {
+    int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+    int endRow = 0;
+    Tile oneTileAhead;
+    Tile twoTilesAhead;
+    // Set endRow, used to check which way is forward
+    if (super.getDefaultRow() >= validMoves.length / 2) {
+      endRow = validMoves.length - 1;
+    }
+    // Set oneTileAhead by using endRow
+    if (endRow == 0) {
+      oneTileAhead = board.getTile(
+        fromThisTile.getRow() + 1, fromThisTile.getColumn());
+      twoTilesAhead = board.getTile(
+        fromThisTile.getRow() + 2, fromThisTile.getColumn());
+    } else {
+      oneTileAhead = board.getTile(
+        fromThisTile.getRow() - 1, fromThisTile.getColumn());
+      twoTilesAhead = board.getTile(
+        fromThisTile.getRow() - 2, fromThisTile.getColumn());
+    }
+    // Changes corresponding validMoves indexed value to 1, if
+    // oneTileAhead is unoccupied or if piece of opposite color occupies.
+    if (oneTileAhead != null && oneTileAhead.getPiece() == null) {
+      validMoves[oneTileAhead.getRow()][oneTileAhead.getColumn()] = 1;
+    }
+    if (isFirstMove == true && oneTileAhead.getPiece() == null &&
+      twoTilesAhead != null && twoTilesAhead.getPiece() == null) {
+      validMoves[twoTilesAhead.getRow()][twoTilesAhead.getColumn()] = 1;
+    }
+    return validMoves;
+  }
+
 }

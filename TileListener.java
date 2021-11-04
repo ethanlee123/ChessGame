@@ -16,8 +16,9 @@ class TileListener implements ActionListener {
     JButton tile = (JButton)e.getSource();
     Tile currentlySelectedTile = (Tile) tile;
     
-    // If piece has been moved on underlying board then move piece on gui.
-    if (board.movePiece(fromThisTile, currentlySelectedTile)) { 
+    // If piece can be moved to currentlySelectedTile
+    if (board.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
+      board.movePiece(fromThisTile, currentlySelectedTile);
       movePieceOnGui(fromThisTile, currentlySelectedTile);
       fromThisTile = null;
     
