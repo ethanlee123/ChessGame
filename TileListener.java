@@ -21,15 +21,17 @@ class TileListener implements ActionListener {
       board.movePiece(fromThisTile, currentlySelectedTile);
       movePieceOnGui(fromThisTile, currentlySelectedTile);
       fromThisTile = null;
-    
+      revertAllTileColors(board);
       // If current tile selected has piece.
     } else if (currentlySelectedTile.getPiece() != null) { 
       // If reselecting current to move.
       if (fromThisTile != null) {
         revertTileColor(fromThisTile);
+        revertAllTileColors(board);
       }
       fromThisTile = currentlySelectedTile;
       fromThisTile.setBackground(new Color(255, 127, 127));
+      showValidMoves(fromThisTile);
     } 
   }
 
@@ -50,6 +52,28 @@ class TileListener implements ActionListener {
       tile.setBackground(TileColors.white);
     } else {
       tile.setBackground(TileColors.black);
+    }
+  }
+  private void revertAllTileColors(Board board) {
+    for (int i = 0; i < board.getTiles().length; i++) {
+      for (int j = 0; j < board.getTiles()[i].length; j++) {
+        revertTileColor(board.getTile(i, j));
+      }
+    }
+  }
+
+  private void showValidMoves(Tile fromThisTile) {
+    if (fromThisTile == null) {
+      return;
+    }
+    int[][] possibleValidMoves = fromThisTile.getPiece().
+    generateValidMovements(board, fromThisTile);
+    for (int i = 0; i < possibleValidMoves.length; i++) {
+      for (int j = 0; j < possibleValidMoves[i].length; j++) {
+        if (possibleValidMoves[i][j] == 1) {
+          board.getTile(i, j).setBackground(new Color(255, 127, 127));
+        }
+      }
     }
   }
 }
