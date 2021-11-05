@@ -12,16 +12,45 @@ public class Bishop extends Piece{
   }
 
   @Override
-  public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
-    // TODO Auto-generated method stub
-    return true;
+  public boolean isValidMovement(Board board, Tile fromThisTile, 
+                                 Tile toThisTile) {
+    int[][] possibleValidMoves = 
+      this.generateValidMovements(board, fromThisTile);
+
+    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+      return true;
+    }
+    return false;
   }
 
   @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile) {
-    // TODO Auto-generated method stub
-    return null;
+    int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+    int startingRow = fromThisTile.getRow();
+    int startingCol = fromThisTile.getColumn();
+    // Check if piece can be moved to bottom right
+    for (int i = 1, j = 1; 
+      startingRow + i < validMoves.length && 
+      startingCol + j < validMoves[i].length; 
+      i++, j++) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to bottom left
+    for (int i = 1, j = -1; startingRow + i < validMoves.length && 
+      startingCol + j >= 0; i++, j--) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to top left
+    for (int i = -1, j = -1; startingRow + i >= 0 && startingCol + j >= 0; 
+      i--, j--) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to top right
+    for (int i = -1, j = 1; startingRow + i >= 0 && 
+      startingCol + j < validMoves[startingRow + i].length; i--, j++) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    return validMoves;
   }
-
 }
 

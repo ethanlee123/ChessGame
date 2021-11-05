@@ -33,7 +33,7 @@ public abstract class Piece implements Movement {
     return this.isKilled;
   }
   public boolean validVerticalMovementCheck(Board board, Tile fromThisTile, 
-    int[][] validMoves, int tileIncrementor) {
+                                            int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries
     if (fromThisTile.getRow() + tileIncrementor < 0 || 
         fromThisTile.getRow() + tileIncrementor >= board.getTiles().length) {
@@ -54,7 +54,7 @@ public abstract class Piece implements Movement {
     return !nextTileHasPieceOfSameColor(fromThisTile, nextTile);
   }
   public boolean validHorizontalMovementCheck(Board board, Tile fromThisTile, 
-    int[][] validMoves, int tileIncrementor) {
+                                              int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries
     if (fromThisTile.getColumn() + tileIncrementor < 0 ||
         fromThisTile.getColumn() + tileIncrementor >= board.getTiles()[0].length) {
@@ -74,28 +74,48 @@ public abstract class Piece implements Movement {
     }
     return !nextTileHasPieceOfSameColor(fromThisTile, nextTile);
   }
+  public boolean validDiagonalMovement(Board board, Tile fromThisTile, 
+                                       int[][] validMoves, int incrementRow, int incrementColumn) {
+    int toThisRow = fromThisTile.getRow() + incrementRow;
+    int toThisColumn = fromThisTile.getColumn() + incrementColumn;
+    // Check if out of board boundaries
+    if (toThisRow < 0 || toThisRow >= board.getTiles().length ||
+      toThisColumn < 0 || toThisColumn >= board.getTiles()[0].length) {
+      return false;
+    }
+
+    Tile nextTile = board.getTile(toThisRow, toThisColumn);
+
+    if (nextTileHasPieceOfOppositeColor(fromThisTile, nextTile)) {
+      validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
+      return false;
+    }
+    if (nextTileIsOpen(fromThisTile, nextTile)) {
+      validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
+      return true;
+    }
+    return !nextTileHasPieceOfSameColor(fromThisTile, nextTile);
+  }
   /*
-   * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
+   * Helper method. Check if nextTile has a piece of same color 
    */
   public boolean nextTileHasPieceOfSameColor(Tile fromThisTile, Tile nextTile) {
-    // Check if nextTile has a piece of same color 
     return (nextTile != null && nextTile.getPiece() != null && 
       nextTile.getPiece().getColor() == fromThisTile.getPiece().getColor())
       ? true
       : false; 
   }
   /*
-   * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
+   * Helper method. Check if next tile is unoccupied
    */
   public boolean nextTileIsOpen(Tile fromThisTile, Tile nextTile) {
-    // Check if next tile is unoccupied
     return (nextTile != null && nextTile.getPiece() == null) ? true : false;
   }
   /*
-   * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
+   * Helper method. Check if next tile has piece of opposite color
    */
-  public boolean nextTileHasPieceOfOppositeColor(Tile fromThisTile, Tile nextTile) {
-    // Check if next tile has piece of opposite color
+  public boolean nextTileHasPieceOfOppositeColor(Tile fromThisTile, 
+                                                 Tile nextTile) {
     return (nextTile != null && nextTile.getPiece() != null &&
       nextTile.getPiece().getColor() != fromThisTile.getPiece().getColor())
       ? true 
