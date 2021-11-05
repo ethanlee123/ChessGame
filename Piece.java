@@ -39,11 +39,15 @@ public abstract class Piece implements Movement {
         fromThisTile.getRow() + tileIncrementor >= board.getTiles().length) {
       return false;
     }
-    
+
     Tile nextTile = board.getTile(fromThisTile.getRow() + tileIncrementor, 
     fromThisTile.getColumn());
 
-    return nextTileOccupancy(fromThisTile, nextTile, validMoves);
+    if (nextTileHasPieceOfSameColor(fromThisTile, nextTile, validMoves) ||
+        nextTileHasPieceOfOppositeColor(fromThisTile, nextTile, validMoves)) {
+        return false;
+    }
+    return nextTileIsOpen(fromThisTile, nextTile, validMoves);
   }
   public boolean validHorizontalMovementCheck(Board board, Tile fromThisTile, 
     int[][] validMoves, int tileIncrementor) {
@@ -56,27 +60,41 @@ public abstract class Piece implements Movement {
     Tile nextTile = board.getTile(fromThisTile.getRow(), 
     fromThisTile.getColumn() + tileIncrementor);
 
-    return nextTileOccupancy(fromThisTile, nextTile, validMoves);
+    if (nextTileHasPieceOfSameColor(fromThisTile, nextTile, validMoves) ||
+        nextTileHasPieceOfOppositeColor(fromThisTile, nextTile, validMoves)) {
+        return false;
+    }
+    return nextTileIsOpen(fromThisTile, nextTile, validMoves);
   }
   /*
    * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
    */
-  private boolean nextTileOccupancy(Tile fromThisTile, Tile nextTile, int[][] validMoves) {
+  private boolean nextTileHasPieceOfSameColor(Tile fromThisTile, 
+    Tile nextTile, int[][] validMoves) {
     // Check if nextTile has a piece of same color 
     if (nextTile != null && nextTile.getPiece() != null && 
       nextTile.getPiece().getColor() == fromThisTile.getPiece().getColor()) {
-        return false;
+      return true;
     }
+    return false; 
+  }
+  private boolean nextTileIsOpen(Tile fromThisTile, 
+    Tile nextTile, int[][] validMoves) {
     // Check if next tile is unoccupied
     if (nextTile != null && nextTile.getPiece() == null) {
       validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
+      return true;
     }
+    return false;
+  }
+  private boolean nextTileHasPieceOfOppositeColor(Tile fromThisTile, 
+    Tile nextTile, int[][] validMoves) {
     // Check if next tile has piece of opposite color
     if (nextTile != null && nextTile.getPiece() != null &&
       nextTile.getPiece().getColor() != fromThisTile.getPiece().getColor()) {
       validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 }
