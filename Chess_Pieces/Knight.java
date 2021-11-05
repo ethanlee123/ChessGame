@@ -13,14 +13,33 @@ public class Knight extends Piece{
 
   @Override
   public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
-    // TODO Auto-generated method stub
-    return true;
+    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
+
+    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+      return true;
+    }
+    return false;
   }
 
   @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile) {
-    // TODO Auto-generated method stub
-    return null;
+    int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+    int startingRow = fromThisTile.getRow();
+    int startingColumn = fromThisTile.getColumn();
+    int[] verticalStep = {2, 1, -1, -2, -2, -1, 1, 2};
+    int[] horizontalStep = {1, 2, 2, 1, -1, -2, -2, -1};
+
+    for (int i = 0; i < 8; i++) {
+      int destinationRow = startingRow + verticalStep[i];
+      int destinationColumn = startingColumn + horizontalStep[i];
+      Tile toThisTile = board.getTile(destinationRow, destinationColumn);
+
+      if (nextTileHasPieceOfOppositeColor(fromThisTile, toThisTile) ||
+        nextTileIsOpen(fromThisTile, toThisTile)) {
+          validMoves[destinationRow][destinationColumn] = 1;
+        }
+    }
+    return validMoves;
   }
 
 }
