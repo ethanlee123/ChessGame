@@ -32,4 +32,46 @@ public abstract class Piece implements Movement {
   public boolean isKilled() {
     return this.isKilled;
   }
+  public boolean validVerticalMovementCheck(Board board, Tile fromThisTile, 
+    int[][] validMoves, int tileIncrementor) {
+    // Check if out of board boundaries
+    if (fromThisTile.getRow() + tileIncrementor < 0 || 
+        fromThisTile.getRow() + tileIncrementor >= board.getTiles().length) {
+      return false;
+    }
+    Tile nextTile = board.getTile(fromThisTile.getRow() + tileIncrementor, 
+    fromThisTile.getColumn());
+    // Check if nextTile has a piece of same color 
+    if (nextTile != null && nextTile.getPiece() != null && 
+      nextTile.getPiece().getColor() == fromThisTile.getPiece().getColor()) {
+      return false;
+    }
+    // check if next tile is unoccupied or has piece of opposite color
+    if (nextTile != null && (nextTile.getPiece() == null || 
+      nextTile.getPiece().getColor() != fromThisTile.getPiece().getColor())) {
+        validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
+    }
+    return true;
+  }
+  public boolean validHorizontalMovementCheck(Board board, Tile fromThisTile, 
+    int[][] validMoves, int tileIncrementor) {
+    // Check if out of board boundaries
+    if (fromThisTile.getColumn() + tileIncrementor < 0 ||
+        fromThisTile.getColumn() + tileIncrementor >= board.getTiles()[0].length) {
+      return false;
+    }
+    Tile nextTile = board.getTile(fromThisTile.getRow(), 
+    fromThisTile.getColumn() + tileIncrementor);
+    // Check if nextTile has a piece of same color 
+    if (nextTile != null && nextTile.getPiece() != null && 
+      nextTile.getPiece().getColor() == fromThisTile.getPiece().getColor()) {
+        return false;
+    }
+    // check if next tile is unoccupied or has piece of opposite color
+    if (nextTile != null && (nextTile.getPiece() == null || 
+      nextTile.getPiece().getColor() != fromThisTile.getPiece().getColor())) {
+        validMoves[nextTile.getRow()][nextTile.getColumn()] = 1;
+    }
+    return true;
+  }
 }

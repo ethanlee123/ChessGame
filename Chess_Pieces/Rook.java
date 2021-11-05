@@ -14,14 +14,38 @@ public class Rook extends Piece{
 
   @Override
   public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
-    // TODO Auto-generated method stub
-    return true;
+    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
+
+    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+      return true;
+    }
+    return false;
   }
 
   @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile) {
-    // TODO Auto-generated method stub
-    return null;
+    int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+    int increasingVerticalIndex = 1;
+    int decreasingVerticalIndex = -1;
+    int increasingHorizontalIndex = 1;
+    int decreasingHorizontalIndex = -1;
+    while (validVerticalMovementCheck(board, fromThisTile, validMoves, 
+      decreasingVerticalIndex)) {
+      decreasingVerticalIndex--;
+    }
+    while (validVerticalMovementCheck(board, fromThisTile, validMoves, 
+      increasingVerticalIndex)) {
+      increasingVerticalIndex++;
+    }
+    while (validHorizontalMovementCheck(board, fromThisTile, validMoves, 
+      decreasingHorizontalIndex)) {
+      decreasingHorizontalIndex--;
+      }
+    while (validHorizontalMovementCheck(board, fromThisTile, validMoves, 
+      increasingHorizontalIndex)) {
+      increasingHorizontalIndex++;
+    }
+    return validMoves;
   }
-  
+
 }
