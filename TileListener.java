@@ -66,8 +66,8 @@ class TileListener implements ActionListener {
     if (fromThisTile == null) {
       return;
     }
-    int[][] possibleValidMoves = fromThisTile.getPiece().
-    generateValidMovements(board, fromThisTile);
+    int[][] possibleValidMoves = 
+      fromThisTile.getPiece().generateValidMovements(board, fromThisTile);
     for (int i = 0; i < possibleValidMoves.length; i++) {
       for (int j = 0; j < possibleValidMoves[i].length; j++) {
         if (possibleValidMoves[i][j] == 1) {
