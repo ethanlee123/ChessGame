@@ -32,6 +32,18 @@ public abstract class Piece implements Movement {
   public boolean isKilled() {
     return this.isKilled;
   }
+  @Override
+  public boolean isValidMovement(Board board, Tile fromThisTile, 
+                                 Tile toThisTile) {
+    int[][] possibleValidMoves = 
+      this.generateValidMovements(board, fromThisTile);
+
+    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+      return true;
+    }
+    return false;
+  }
+  
   public boolean validVerticalMovementCheck(Board board, Tile fromThisTile, 
                                             int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries

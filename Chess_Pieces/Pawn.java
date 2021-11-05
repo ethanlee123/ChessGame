@@ -12,17 +12,6 @@ public class Pawn extends Piece{
     super(color, row, column, "P");
   }
 
-  @Override
-  public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
-    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
-
-    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
-      this.firstMoveDone();
-      return true;
-    }
-    return false;
-  }
-
   public boolean promoteTo(Piece piece) {
     // TODO
     return true;

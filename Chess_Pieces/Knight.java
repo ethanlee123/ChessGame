@@ -12,16 +12,6 @@ public class Knight extends Piece{
   }
 
   @Override
-  public boolean isValidMovement(Board board, Tile fromThisTile, Tile toThisTile) {
-    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
-
-    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     int startingRow = fromThisTile.getRow();

@@ -26,17 +26,6 @@ public class King extends Piece{
   }
 
   @Override
-  public boolean isValidMovement(Board board, Tile fromThisTile, 
-                                 Tile toThisTile) {
-    int[][] possibleValidMoves = this.generateValidMovements(board, fromThisTile);
-
-    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
-      return true;
-    }
-    return false;
-  }
-
-  @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile) {
     int[][] validMoves = 
       new int[board.getTiles().length][board.getTiles()[0].length];
@@ -46,7 +35,7 @@ public class King extends Piece{
     validVerticalMovementCheck(board, fromThisTile, validMoves, -1);
     validHorizontalMovementCheck(board, fromThisTile, validMoves, 1);
     validHorizontalMovementCheck(board, fromThisTile, validMoves, -1);
-    
+
     for (int i = 0; i < diagonalCoordinates.length; i++) {
       validDiagonalMovement(board, fromThisTile, validMoves, 
                             diagonalCoordinates[i][0], 
