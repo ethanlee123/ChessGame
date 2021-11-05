@@ -78,6 +78,9 @@ public abstract class Piece implements Movement {
     }
     return false; 
   }
+  /*
+   * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
+   */
   private boolean nextTileIsOpen(Tile fromThisTile, 
     Tile nextTile, int[][] validMoves) {
     // Check if next tile is unoccupied
@@ -87,6 +90,9 @@ public abstract class Piece implements Movement {
     }
     return false;
   }
+  /*
+   * Helper method for validVerticalMovementCheck and validHorizontalMovementCheck. 
+   */
   private boolean nextTileHasPieceOfOppositeColor(Tile fromThisTile, 
     Tile nextTile, int[][] validMoves) {
     // Check if next tile has piece of opposite color
