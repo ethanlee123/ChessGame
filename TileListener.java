@@ -18,25 +18,26 @@ class TileListener implements ActionListener {
     JButton tile = (JButton)e.getSource();
     Tile currentlySelectedTile = (Tile) tile;
 
-    // Check if currently selected piece color is not that of the current
-    // players turn;
-    if (currentlySelectedTile.getPiece() != null && currentlySelectedTile.getPiece().getColor() != chessGame.getCurrentPlayersTurn().getColor()) {
-      return;
+    // Check if our piece to move's color is equal to current player's color.
+    if (fromThisTile != null && 
+        fromThisTile.getPiece() != null && 
+        fromThisTile.getPiece().getColor() == chessGame.getCurrentPlayersTurn().getColor()) {
+      // Check if piece can be moved to currentlySelectedTile
+      if (board.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
+        board.movePiece(fromThisTile, currentlySelectedTile);
+        movePieceOnGui(fromThisTile, currentlySelectedTile);
+        fromThisTile = null;
+        revertAllTileColors(board);
+
+        // Set next players turn
+        chessGame.nextPlayersTurn(chessGame.getCurrentPlayersTurn());
+      }
     }
-    
-    // If piece can be moved to currentlySelectedTile
-    if (board.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
-      board.movePiece(fromThisTile, currentlySelectedTile);
-      movePieceOnGui(fromThisTile, currentlySelectedTile);
-      fromThisTile = null;
-      revertAllTileColors(board);
-
-      // Set next players turn
-      chessGame.nextPlayersTurn(chessGame.getCurrentPlayersTurn());
-
-      // If current tile selected has piece.
-    } else if (currentlySelectedTile.getPiece() != null) { 
-      // If reselecting current to move.
+    // Check if current tile selected has piece and currently selected tile
+    // is that of the current player's color
+    if (currentlySelectedTile.getPiece() != null && 
+        currentlySelectedTile.getPiece().getColor() == chessGame.getCurrentPlayersTurn().getColor() ) {
+      // If reselecting piece to move.
       if (fromThisTile != null) {
         revertTileColor(fromThisTile);
         revertAllTileColors(board);
@@ -44,7 +45,7 @@ class TileListener implements ActionListener {
       fromThisTile = currentlySelectedTile;
       fromThisTile.setBackground(new Color(255, 127, 127));
       showValidMoves(fromThisTile);
-    } 
+    }
   }
   private void movePieceOnGui(Tile fromThisTile, Tile toThisTile) {
     revertTileColor(fromThisTile);
