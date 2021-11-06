@@ -1,5 +1,7 @@
 package A00990753;
 
+import A00990753.Chess_Pieces.Pawn;
+
 public class ChessBoard extends Board{
 
   ChessBoard(int rows, int columns) {
@@ -32,10 +34,12 @@ public class ChessBoard extends Board{
     // If piece has been selected to move
     if (fromThisTile != null && fromThisTile.getPiece() != null) {
       ColorSide fromThisTileColor = fromThisTile.getPiece().getColor();
-
+      
+      if (fromThisTile.getPiece().getClass() == Pawn.class) {
+        ((Pawn) fromThisTile.getPiece()).firstMoveDone();
+      }
       // If tile to move to is unoccupied
       if (toThisTile.getPiece() == null) { 
-
         toThisTile.setPiece(fromThisTile.getPiece());
         fromThisTile.removePiece();
         return true;
