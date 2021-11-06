@@ -9,9 +9,9 @@ public class ChessGui {
   private JPanel panel = new JPanel(new GridLayout(0, 8));
   private TileListener listener;
 
-  ChessGui(Board board) {
-    this.board = board;
-    listener = new TileListener(this, board);
+  ChessGui(Game chessGame) {
+    this.board = chessGame.getBoard();
+    listener = new TileListener(this, chessGame);
   }
 
   public void displayGame() {

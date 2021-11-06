@@ -6,7 +6,7 @@ abstract class Game {
   GameStatus gameStatus;
   Board board;
   Result latestResult;
-  Player playersTurn;
+  Player currentPlayersTurn;
   List<Player> listOfPlayers;
 
   protected Game() {
@@ -17,8 +17,12 @@ abstract class Game {
 
   abstract void startGame();
   abstract void resignFromGame(Player... player);
+  abstract Player nextPlayersTurn(Player currentPlayer);
 
-
+  /*
+   * Add new player to list. Cannot have duplicate colors.
+   * Returns true if player succesfully added, false otherwise.
+   */
   public boolean addNewPlayer(ColorSide color) {
     for (Player p : listOfPlayers) {
       if (color == p.getColor()) {
@@ -29,9 +33,12 @@ abstract class Game {
     return true;
   }
   public void setPlayersTurn(Player player) {
-    this.playersTurn = player;
+    this.currentPlayersTurn = player;
   }
-  public Player getPlayersTurn() {
-    return this.playersTurn;
+  public Player getCurrentPlayersTurn() {
+    return this.currentPlayersTurn;
+  }
+  public Board getBoard() {
+    return this.board;
   }
 }

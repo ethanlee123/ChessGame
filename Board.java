@@ -6,6 +6,10 @@ public abstract class Board {
   Board(int rows, int columns) {
     this.tiles = new Tile[rows][columns];
   }
+
+  abstract public boolean movePiece(Tile fromThisTile, Tile currentlySelectedTile);
+  abstract public boolean isValidPieceMovement(Tile fromThisTile, Tile currentlySelectedTile);
+  
   public Tile getTile(int row, int column) {
     if (row < 0 || column < 0 || 
         row >= tiles.length || column >= tiles[0].length) {
@@ -16,6 +20,5 @@ public abstract class Board {
   public Tile[][] getTiles() {
     return this.tiles;
   }
-  abstract public boolean movePiece(Tile fromThisTile, Tile currentlySelectedTile);
-  abstract public boolean isValidPieceMovement(Tile fromThisTile, Tile currentlySelectedTile);
+
 }

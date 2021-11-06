@@ -13,17 +13,32 @@ public class ChessGame extends Game {
     board = new ChessBoard(8, 8);
     createPieces();
     setPiecesOnTiles(board);
-    this.gui = new ChessGui(board);
   }
-
+  
   @Override
   void startGame() {
+    this.gui = new ChessGui(this);
     this.gui.displayGame();
+    addNewPlayer(ColorSide.WHITE);
+    addNewPlayer(ColorSide.BLACK);
+    setPlayersTurn(super.listOfPlayers.get(0));
+  }
+  @Override
+  public Player nextPlayersTurn(Player currentPlayer) {
+    Player nextPlayer = null;
+    int indexOfCurrentPlayer = listOfPlayers.indexOf(currentPlayer);
+
+    if (indexOfCurrentPlayer + 1 >= listOfPlayers.size()) {
+      nextPlayer = listOfPlayers.get(0);
+    } else {
+      nextPlayer = listOfPlayers.get(indexOfCurrentPlayer + 1);
+    }
+    super.setPlayersTurn(nextPlayer);
+    return nextPlayer;
   }
 
   // Create chess pieces with default position and add to pieces List
   private void createPieces() {
-
     pieces.clear();
 
     // Create all pawn pieces
@@ -36,7 +51,6 @@ public class ChessGame extends Game {
       pieces.add(pawn);
     }
 
-    // Create white pieces
     createNonPawnPieces(ColorSide.WHITE);
     createNonPawnPieces(ColorSide.BLACK);
   }
@@ -90,6 +104,5 @@ public class ChessGame extends Game {
   @Override
   void resignFromGame(Player... player) {
     // TODO Auto-generated method stub
-    
   }
 }

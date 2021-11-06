@@ -43,7 +43,6 @@ public abstract class Piece implements Movement {
     }
     return false;
   }
-  
   public boolean validVerticalMovementCheck(Board board, Tile fromThisTile, 
                                             int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries

@@ -5,16 +5,24 @@ import java.awt.event.*;
 
 class TileListener implements ActionListener {
   private final Board board;
+  private final Game chessGame;
   private Tile fromThisTile = null;
 
-  TileListener(ChessGui gui, Board board) {
-    this.board = board;
+  TileListener(ChessGui gui, Game chessGame) {
+    this.chessGame = chessGame;
+    this.board = chessGame.getBoard();
   }
   
   @Override
   public void actionPerformed(ActionEvent e) {
     JButton tile = (JButton)e.getSource();
     Tile currentlySelectedTile = (Tile) tile;
+
+    // Check if currently selected piece color is not that of the current
+    // players turn;
+    if (currentlySelectedTile.getPiece() != null && currentlySelectedTile.getPiece().getColor() != chessGame.getCurrentPlayersTurn().getColor()) {
+      return;
+    }
     
     // If piece can be moved to currentlySelectedTile
     if (board.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
@@ -22,6 +30,10 @@ class TileListener implements ActionListener {
       movePieceOnGui(fromThisTile, currentlySelectedTile);
       fromThisTile = null;
       revertAllTileColors(board);
+
+      // Set next players turn
+      chessGame.nextPlayersTurn(chessGame.getCurrentPlayersTurn());
+
       // If current tile selected has piece.
     } else if (currentlySelectedTile.getPiece() != null) { 
       // If reselecting current to move.
@@ -34,7 +46,6 @@ class TileListener implements ActionListener {
       showValidMoves(fromThisTile);
     } 
   }
-
   private void movePieceOnGui(Tile fromThisTile, Tile toThisTile) {
     revertTileColor(fromThisTile);
     revertTileColor(toThisTile);
@@ -46,7 +57,6 @@ class TileListener implements ActionListener {
     }
     fromThisTile.setText("");
   }
-
   private void revertTileColor(Tile tile) {
     if (tile.getColor() == ColorSide.WHITE) {
       tile.setBackground(TileColors.white);
@@ -61,7 +71,6 @@ class TileListener implements ActionListener {
       }
     }
   }
-
   private void showValidMoves(Tile fromThisTile) {
     if (fromThisTile == null) {
       return;
