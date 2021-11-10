@@ -1,5 +1,6 @@
 package A00990753;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,11 +11,19 @@ public class ChessGame extends Game {
   private ChessGui gui;
 
   public ChessGame() {
-    board = new ChessBoard(8, 8);
+    setListOfBoards(createBoards(8, 8, 3));
     createPieces();
-    setPiecesOnTiles(board);
+    setPiecesOnTiles(super.getBoardAt(0));
   }
-  
+  @Override
+  List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate) {
+    List<Board> listOfBoard = new ArrayList<Board>();
+    for (int i = 1; i <= numberOfBoardsToCreate; i++) {
+      listOfBoard.add(new ChessBoard(rows, columns));
+    }
+    return listOfBoard;
+  }
+
   @Override
   void startGame() {
     this.gui = new ChessGui(this);
@@ -105,4 +114,5 @@ public class ChessGame extends Game {
   void resignFromGame(Player... player) {
     // TODO Auto-generated method stub
   }
+
 }

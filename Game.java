@@ -2,9 +2,10 @@ package A00990753;
 
 import java.util.ArrayList;
 import java.util.List;
+
 abstract class Game {
   GameStatus gameStatus;
-  Board board;
+  List<Board> listOfBoards;
   Result latestResult;
   Player currentPlayersTurn;
   List<Player> listOfPlayers;
@@ -18,6 +19,7 @@ abstract class Game {
   abstract void startGame();
   abstract void resignFromGame(Player... player);
   abstract Player nextPlayersTurn(Player currentPlayer);
+  abstract List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate);
 
   /*
    * Add new player to list. Cannot have duplicate colors.
@@ -38,7 +40,13 @@ abstract class Game {
   public Player getCurrentPlayersTurn() {
     return this.currentPlayersTurn;
   }
-  public Board getBoard() {
-    return this.board;
+  public Board getBoardAt(int index) {
+    return this.listOfBoards.get(index);
+  }
+  public void setListOfBoards(List<Board> listOfBoards) {
+    this.listOfBoards = listOfBoards;
+  }
+  public List<Board> getAllBoard() {
+    return this.listOfBoards;
   }
 }

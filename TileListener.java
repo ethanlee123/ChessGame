@@ -10,7 +10,8 @@ class TileListener implements ActionListener {
 
   TileListener(ChessGui gui, Game chessGame) {
     this.chessGame = chessGame;
-    this.board = chessGame.getBoard();
+    this.board = chessGame.getBoardAt(0);
+    // this.board = board;
   }
   
   @Override

@@ -2,15 +2,16 @@ package A00990753;
 
 import java.awt.*;
 import javax.swing.*;
-
+import java.util.List;
+import java.util.ArrayList;
 public class ChessGui {
-  private Board board;
+  private List<Board> listOfBoards;
   private JFrame frame = new JFrame();
   private JPanel panel = new JPanel(new GridLayout(0, 8));
   private TileListener listener;
 
   ChessGui(Game chessGame) {
-    this.board = chessGame.getBoard();
+    this.listOfBoards = chessGame.getAllBoard();
     listener = new TileListener(this, chessGame);
   }
 
@@ -27,24 +28,26 @@ public class ChessGui {
   }
 
   void createChessPiecesAndTiles() {
-    Tile[][] tiles = board.getTiles();
-    for (int i = 0; i < tiles.length; i++) {
-      for (int j = 0; j < tiles[i].length; j++) {
-          Tile tile = tiles[i][j];
-          tile.setPreferredSize(new Dimension(64, 64));
-          tile.setFont(PieceGraphics.font);
-
-          if (tile.getColor() == ColorSide.WHITE) {
-            tile.setBackground(TileColors.white);
-          } else { // else tile color is BLACK 
-            tile.setBackground(TileColors.black);
-          }
-
-          if (tile.getPiece() != null) {
-            tile.setText(tile.getPiece().getName());
-            setPieceTextColor(tile);
-          }
-          tile.addActionListener(listener);
+    for (int k = 0; k < listOfBoards.size(); k++) {
+      Tile[][] tiles = listOfBoards.get(k).getTiles();
+      for (int i = 0; i < tiles.length; i++) {
+        for (int j = 0; j < tiles[i].length; j++) {
+            Tile tile = tiles[i][j];
+            tile.setPreferredSize(new Dimension(64, 64));
+            tile.setFont(PieceGraphics.font);
+  
+            if (tile.getColor() == ColorSide.WHITE) {
+              tile.setBackground(TileColors.white);
+            } else { // else tile color is BLACK 
+              tile.setBackground(TileColors.black);
+            }
+  
+            if (tile.getPiece() != null) {
+              tile.setText(tile.getPiece().getName());
+              setPieceTextColor(tile);
+            }
+            tile.addActionListener(listener);
+        }
       }
     }
   }
@@ -58,9 +61,11 @@ public class ChessGui {
     }
   }
   private void addButtonsToPanel() {
-    for (int i = 0; i < 8; i++) {
-      for (int j = 0; j < 8; j++) {
-        panel.add(board.getTile(i, j));
+    for (int k = 0; k < listOfBoards.size(); k++) {
+      for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+          panel.add(listOfBoards.get(k).getTile(i, j));
+        }
       }
     }
   }
