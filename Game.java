@@ -46,7 +46,7 @@ abstract class Game {
   public void setListOfBoards(List<Board> listOfBoards) {
     this.listOfBoards = listOfBoards;
   }
-  public List<Board> getAllBoard() {
+  public List<Board> getAllBoards() {
     return this.listOfBoards;
   }
 }

@@ -12,9 +12,9 @@ public class ChessGui {
   private TileListener listener;
 
   ChessGui(Game chessGame) {
-    this.listOfBoards = chessGame.getAllBoard();
+    this.listOfBoards = chessGame.getAllBoards();
     listener = new TileListener(this, chessGame);
-    listOfPanels = createPanels(3);
+    listOfPanels = createPanels(chessGame.getAllBoards().size());
   }
   private List<JPanel> createPanels(int numberOfJPanelsToCreate) {
     List<JPanel> listOfPanels = new ArrayList<JPanel>();
