@@ -20,12 +20,14 @@ public class ChessGui {
     List<JPanel> listOfPanels = new ArrayList<JPanel>();
     for (int i = 1; i <= numberOfJPanelsToCreate; i++) {
       JPanel jpanel = new JPanel(new GridLayout(0, 8));
-      jpanel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, new Color((int) (Math.random() * 0x1000000))));
+      setRandomBorderColor(jpanel);
       listOfPanels.add(jpanel);
     }
     return listOfPanels;
   }
-
+  private void setRandomBorderColor(JPanel panel) {
+    panel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, new Color((int) (Math.random() * 0x1000000))));
+  }
   public void displayGame() {
     frame.setBounds(10, 10, 530, 550);
     mainPanel.add(listOfPanels.get(0));
