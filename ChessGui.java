@@ -7,20 +7,35 @@ import java.util.ArrayList;
 public class ChessGui {
   private List<Board> listOfBoards;
   private JFrame frame = new JFrame();
-  private JPanel panel = new JPanel(new GridLayout(0, 8));
+  private JPanel mainPanel = new JPanel(new GridLayout(0, 3));
+  private List<JPanel> listOfPanels;
   private TileListener listener;
 
   ChessGui(Game chessGame) {
     this.listOfBoards = chessGame.getAllBoard();
     listener = new TileListener(this, chessGame);
+    listOfPanels = createPanels(3);
+  }
+  private List<JPanel> createPanels(int numberOfJPanelsToCreate) {
+    List<JPanel> listOfPanels = new ArrayList<JPanel>();
+    for (int i = 1; i <= numberOfJPanelsToCreate; i++) {
+      JPanel jpanel = new JPanel(new GridLayout(0, 8));
+      jpanel.setBorder(BorderFactory.createMatteBorder(3, 3, 3, 3, new Color((int) (Math.random() * 0x1000000))));
+      listOfPanels.add(jpanel);
+    }
+    return listOfPanels;
   }
 
   public void displayGame() {
     frame.setBounds(10, 10, 530, 550);
-    frame.add(panel);
+    mainPanel.add(listOfPanels.get(0));
+    mainPanel.add(listOfPanels.get(1));
+    mainPanel.add(listOfPanels.get(2));
+    frame.add(mainPanel);
 
     createChessPiecesAndTiles();
-    addButtonsToPanel();
+
+    addButtonsToPanels();
 
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
@@ -51,7 +66,6 @@ public class ChessGui {
       }
     }
   }
-
   public static void setPieceTextColor(Tile tile) {
     ColorSide color = tile.getPiece().getColor();
     if (color == ColorSide.WHITE) {
@@ -60,11 +74,11 @@ public class ChessGui {
       tile.setForeground(PieceGraphics.black);
     }
   }
-  private void addButtonsToPanel() {
+  private void addButtonsToPanels() {
     for (int k = 0; k < listOfBoards.size(); k++) {
       for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
-          panel.add(listOfBoards.get(k).getTile(i, j));
+          listOfPanels.get(k).add(listOfBoards.get(k).getTile(i, j));
         }
       }
     }
