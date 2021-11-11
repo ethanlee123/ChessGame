@@ -16,7 +16,10 @@ public class ChessGame extends Game {
     setPiecesOnTiles(super.getBoardAt(0));
   }
   @Override
-  List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate) {
+  List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate) throws IllegalArgumentException {
+    if (numberOfBoardsToCreate < 1) {
+      throw new IllegalArgumentException("Must create at least 1 board");
+    }
     List<Board> listOfBoard = new ArrayList<Board>();
     for (int i = 1; i <= numberOfBoardsToCreate; i++) {
       listOfBoard.add(new ChessBoard(rows, columns));
