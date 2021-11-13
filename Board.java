@@ -19,7 +19,7 @@ public abstract class Board {
   public Tile[][] getTiles() {
     return this.tiles;
   }
-  public int getBoardAt() {
+  public int getBoardId() {
     return this.boardId;
   }
 }
