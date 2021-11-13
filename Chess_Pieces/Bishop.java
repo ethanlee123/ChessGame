@@ -12,8 +12,7 @@ public class Bishop extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Game chessGame, Tile fromThisTile) {
-    Board board = chessGame.getBoardAt(0);
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     int startingRow = fromThisTile.getRow();
     int startingCol = fromThisTile.getColumn();

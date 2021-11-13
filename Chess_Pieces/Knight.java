@@ -12,8 +12,7 @@ public class Knight extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Game chessGame, Tile fromThisTile) {
-    Board board = chessGame.getBoardAt(0);
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     int startingRow = fromThisTile.getRow();
     int startingColumn = fromThisTile.getColumn();
@@ -23,10 +22,10 @@ public class Knight extends Piece{
     for (int i = 0; i < 8; i++) {
       int destinationRow = startingRow + verticalStep[i];
       int destinationColumn = startingColumn + horizontalStep[i];
-      Tile toThisTile = board.getTile(destinationRow, destinationColumn);
+      Tile destination = board.getTile(destinationRow, destinationColumn);
 
-      if (nextTileHasPieceOfOppositeColor(fromThisTile, toThisTile) ||
-        nextTileIsOpen(fromThisTile, toThisTile)) {
+      if (nextTileHasPieceOfOppositeColor(fromThisTile, destination) ||
+        nextTileIsOpen(fromThisTile, destination)) {
           validMoves[destinationRow][destinationColumn] = 1;
         }
     }

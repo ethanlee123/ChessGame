@@ -1,5 +1,7 @@
 package A00990753;
 
+import java.util.List;
+
 public abstract class Piece implements Movement {
   private String name;
   private ColorSide color;
@@ -35,11 +37,14 @@ public abstract class Piece implements Movement {
   @Override
   public boolean isValidMovement(Game game, Tile fromThisTile, 
                                  Tile toThisTile) {
-    int[][] possibleValidMoves = 
-      this.generateValidMovements(game, fromThisTile);
-
-    if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
-      return true;
+    List<Board> allBoards = game.getAllBoards();
+    for (int i = 0; i < allBoards.size(); i++) {
+      int[][] possibleValidMoves = 
+        this.generateValidMovements(allBoards.get(i), fromThisTile, toThisTile);
+  
+      if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
+        return true;
+      }
     }
     return false;
   }
@@ -132,4 +137,12 @@ public abstract class Piece implements Movement {
       ? true 
       : false;
   }
+  public void allowYAxisMovement(Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
+    // allow pawn to move directly above
+    for (int i = 0; i < ChessGame.getNumberOfBoards(); i++) {
+      if (i != fromThisTile.getBoardId()) {
+        validMoves[fromThisTile.getRow()][fromThisTile.getColumn()] = 1;
+      }
+    }
+}
 }

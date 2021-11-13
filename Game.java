@@ -9,6 +9,7 @@ public abstract class Game {
   Result latestResult;
   Player currentPlayersTurn;
   List<Player> listOfPlayers;
+  private static int numberOfBoards = 0;
 
   protected Game() {
     this.gameStatus = GameStatus.ACTIVE;
@@ -50,5 +51,11 @@ public abstract class Game {
   }
   public List<Board> getAllBoards() {
     return this.listOfBoards;
+  }
+  public static int getNumberOfBoards() {
+    return numberOfBoards;
+  }
+  public void incrementNumberOfBoards() {
+    numberOfBoards++;
   }
 }
