@@ -33,10 +33,10 @@ public abstract class Piece implements Movement {
     return this.isKilled;
   }
   @Override
-  public boolean isValidMovement(Board board, Tile fromThisTile, 
+  public boolean isValidMovement(Game game, Tile fromThisTile, 
                                  Tile toThisTile) {
     int[][] possibleValidMoves = 
-      this.generateValidMovements(board, fromThisTile);
+      this.generateValidMovements(game, fromThisTile);
 
     if (possibleValidMoves[toThisTile.getRow()][toThisTile.getColumn()] == 1) {
       return true;

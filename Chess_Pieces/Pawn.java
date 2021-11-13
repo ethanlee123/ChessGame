@@ -2,6 +2,7 @@ package A00990753.Chess_Pieces;
 
 import A00990753.Board;
 import A00990753.ColorSide;
+import A00990753.Game;
 import A00990753.Piece;
 import A00990753.Tile;
 
@@ -22,11 +23,19 @@ public class Pawn extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile) {
+  public int[][] generateValidMovements(Game chessGame, Tile fromThisTile) {
+    Board board = chessGame.getBoardAt(0);
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     int endRow = 0;
     Tile oneTileAhead;
     Tile twoTilesAhead;
+
+    // If tiles directly above or below are empty
+    if (board.getTile(fromThisTile.getRow(), fromThisTile.getColumn()).getPiece() == null) {
+      validMoves[fromThisTile.getRow()][fromThisTile.getColumn()] = 1;
+    }
+
+
     // Set endRow, used to check which way is forward
     if (super.getDefaultRow() >= validMoves.length / 2) {
       endRow = validMoves.length - 1;
@@ -53,7 +62,9 @@ public class Pawn extends Piece{
       twoTilesAhead != null && twoTilesAhead.getPiece() == null) {
       validMoves[twoTilesAhead.getRow()][twoTilesAhead.getColumn()] = 1;
     }
+
+    // If first move and moving to second level
+    // if (isFirstMove == true && )
     return validMoves;
   }
-
 }

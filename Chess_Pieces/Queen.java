@@ -2,6 +2,7 @@ package A00990753.Chess_Pieces;
 
 import A00990753.Board;
 import A00990753.ColorSide;
+import A00990753.Game;
 import A00990753.Piece;
 import A00990753.Tile;
 
@@ -11,7 +12,8 @@ public class Queen extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile) {
+  public int[][] generateValidMovements(Game chessGame, Tile fromThisTile) {
+    Board board = chessGame.getBoardAt(0);
     int[][] validMoves = 
       new int[board.getTiles().length][board.getTiles()[0].length];
       generateVerticalMovements(board, fromThisTile, validMoves);

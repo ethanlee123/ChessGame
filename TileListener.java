@@ -2,16 +2,19 @@ package A00990753;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-
+import java.util.ArrayList;
+import java.util.List;
 class TileListener implements ActionListener {
   private final Board board;
   private final Game chessGame;
+  private List<Board> allBoards;
   private Tile fromThisTile = null;
 
   TileListener(ChessGui gui, Game chessGame) {
     this.chessGame = chessGame;
     this.board = chessGame.getBoardAt(0);
     // this.board = board;
+    this.allBoards = chessGame.getAllBoards();
   }
   
   @Override
@@ -23,29 +26,31 @@ class TileListener implements ActionListener {
     if (fromThisTile != null && 
         fromThisTile.getPiece() != null && 
         fromThisTile.getPiece().getColor() == chessGame.getCurrentPlayersTurn().getColor()) {
+      
       // Check if piece can be moved to currentlySelectedTile
-      if (board.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
-        board.movePiece(fromThisTile, currentlySelectedTile);
+      if (chessGame.isValidPieceMovement(fromThisTile, currentlySelectedTile)) { 
+        chessGame.movePiece(fromThisTile, currentlySelectedTile);
         movePieceOnGui(fromThisTile, currentlySelectedTile);
         fromThisTile = null;
         revertAllTileColors(board);
-
         // Set next players turn
         chessGame.nextPlayersTurn(chessGame.getCurrentPlayersTurn());
+        // break;
       }
-    }
-    // Check if current tile selected has piece and currently selected tile
-    // is that of the current player's color
-    if (currentlySelectedTile.getPiece() != null && 
-        currentlySelectedTile.getPiece().getColor() == chessGame.getCurrentPlayersTurn().getColor() ) {
-      // If reselecting piece to move.
-      if (fromThisTile != null) {
-        revertTileColor(fromThisTile);
-        revertAllTileColors(board);
+
+      // Check if current tile selected has piece and currently selected tile
+      // is that of the current player's color
+      if (currentlySelectedTile.getPiece() != null && 
+          currentlySelectedTile.getPiece().getColor() == chessGame.getCurrentPlayersTurn().getColor() ) {
+        // If reselecting piece to move.
+        if (fromThisTile != null) {
+          revertTileColor(fromThisTile);
+          revertAllTileColors(board);
+        }
+        fromThisTile = currentlySelectedTile;
+        fromThisTile.setBackground(new Color(255, 127, 127));
+        showValidMoves(fromThisTile);
       }
-      fromThisTile = currentlySelectedTile;
-      fromThisTile.setBackground(new Color(255, 127, 127));
-      showValidMoves(fromThisTile);
     }
   }
   private void movePieceOnGui(Tile fromThisTile, Tile toThisTile) {
@@ -67,9 +72,11 @@ class TileListener implements ActionListener {
     }
   }
   private void revertAllTileColors(Board board) {
-    for (int i = 0; i < board.getTiles().length; i++) {
-      for (int j = 0; j < board.getTiles()[i].length; j++) {
-        revertTileColor(board.getTile(i, j));
+    for (int k = 0; k < allBoards.size(); k++) {
+      for (int i = 0; i < allBoards.get(k).getTiles().length; i++) {
+        for (int j = 0; j < allBoards.get(k).getTiles()[i].length; j++) {
+          revertTileColor(allBoards.get(k).getTile(i, j));
+        }
       }
     }
   }
@@ -77,12 +84,15 @@ class TileListener implements ActionListener {
     if (fromThisTile == null) {
       return;
     }
-    int[][] possibleValidMoves = 
-      fromThisTile.getPiece().generateValidMovements(board, fromThisTile);
-    for (int i = 0; i < possibleValidMoves.length; i++) {
-      for (int j = 0; j < possibleValidMoves[i].length; j++) {
-        if (possibleValidMoves[i][j] == 1) {
-          board.getTile(i, j).setBackground(new Color(255, 127, 127));
+
+    for (int k = 0; k < allBoards.size(); k++) {
+      int[][] possibleValidMoves = 
+        fromThisTile.getPiece().generateValidMovements(chessGame, fromThisTile);
+      for (int i = 0; i < possibleValidMoves.length; i++) {
+        for (int j = 0; j < possibleValidMoves[i].length; j++) {
+          if (possibleValidMoves[i][j] == 1) {
+            allBoards.get(k).getTile(i, j).setBackground(new Color(255, 127, 127));
+          }
         }
       }
     }

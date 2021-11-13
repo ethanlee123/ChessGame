@@ -24,43 +24,4 @@ public class ChessBoard extends Board{
       isWhiteTile = !isWhiteTile;
     }
   } 
-
-  /*
-   * Handles moving pieces of the 2d Piece array by setting and removing 
-   * pieces from tiles.
-   * Return true if piece has been succesfully moved, false otherwise/
-   */
-  public boolean movePiece(Tile fromThisTile, Tile toThisTile) {
-    // If piece has been selected to move
-    if (fromThisTile != null && fromThisTile.getPiece() != null) {
-      ColorSide fromThisTileColor = fromThisTile.getPiece().getColor();
-      
-      if (fromThisTile.getPiece().getClass() == Pawn.class) {
-        ((Pawn) fromThisTile.getPiece()).firstMoveDone();
-      }
-      // If tile to move to is unoccupied
-      if (toThisTile.getPiece() == null) { 
-        toThisTile.setPiece(fromThisTile.getPiece());
-        fromThisTile.removePiece();
-        return true;
-      }
-
-      // If tile to move to has a piece of the opposite color.
-      if (fromThisTileColor != toThisTile.getPiece().getColor()) {
-        toThisTile.getPiece().kill();
-        toThisTile.setPiece(fromThisTile.getPiece());
-        fromThisTile.removePiece();
-        return true;
-      }
-    }
-    return false;
-  }
-
-  public boolean isValidPieceMovement(Tile fromThisTile, Tile toThisTile) {
-    if (fromThisTile == null || toThisTile == null) {
-      return false;
-    }
-    Piece pieceToMove = fromThisTile.getPiece();
-    return pieceToMove.isValidMovement(this, fromThisTile, toThisTile);
-  }
 }
