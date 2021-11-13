@@ -63,7 +63,7 @@ public class ChessGame extends Game {
     }
     List<Board> listOfBoard = new ArrayList<Board>();
     for (int i = 1; i <= numberOfBoardsToCreate; i++) {
-      listOfBoard.add(new ChessBoard(rows, columns));
+      listOfBoard.add(new ChessBoard(rows, columns, i));
     }
     return listOfBoard;
   }

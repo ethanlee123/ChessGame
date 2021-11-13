@@ -1,10 +1,12 @@
 package A00990753;
 
 public abstract class Board {
+  private final int boardId;
   protected Tile[][] tiles;
   
-  Board(int rows, int columns) {
+  Board(int rows, int columns, int boardId) {
     this.tiles = new Tile[rows][columns];
+    this.boardId = boardId;
   }
   
   public Tile getTile(int row, int column) {
@@ -17,5 +19,7 @@ public abstract class Board {
   public Tile[][] getTiles() {
     return this.tiles;
   }
-
+  public int getBoardAt() {
+    return this.boardId;
+  }
 }

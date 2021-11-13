@@ -7,12 +7,14 @@ public class Tile extends JButton{
   private final ColorSide color;
   private final int row;
   private final int column;
+  private final int boardId;
 
-  Tile(Piece piece, ColorSide color, int row, int column) {
+  Tile(Piece piece, ColorSide color, int row, int column, int boardId) {
     this.piece = piece;
     this.color = color;
     this.row = row;
     this.column = column;
+    this.boardId = boardId;
   }
 
   public ColorSide getColor() {
@@ -32,5 +34,8 @@ public class Tile extends JButton{
   }
   public int getColumn() {
     return this.column;
+  }
+  public int getBoardId() {
+    return this.boardId;
   }
 }
