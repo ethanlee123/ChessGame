@@ -14,6 +14,25 @@ public class Bishop extends Piece{
   @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+
+    // If identifying valid moves on a different board than what the rook
+    // is currently on.
+    if (fromThisTile.getBoardId() != board.getBoardId()) {
+      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves);
+    } else {
+      allowValidMovesOnSameBoard(board, fromThisTile, toThisTile, validMoves);
+    }
+
+
+    return validMoves;
+  }
+  private void allowDiagonalMovesOnOtherBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
+    validDiagonalMovement(board, fromThisTile, validMoves, 1, 1);
+    validDiagonalMovement(board, fromThisTile, validMoves, -1, -1);
+    validDiagonalMovement(board, fromThisTile, validMoves, 1, -1);
+    validDiagonalMovement(board, fromThisTile, validMoves, -1, 1);
+  }
+  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
     int startingRow = fromThisTile.getRow();
     int startingCol = fromThisTile.getColumn();
     // Check if piece can be moved to bottom right
@@ -38,7 +57,6 @@ public class Bishop extends Piece{
       startingCol + j < validMoves[startingRow + i].length; i--, j++) {
       if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
     }
-    return validMoves;
   }
 }
 
