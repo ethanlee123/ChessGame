@@ -13,7 +13,7 @@ public class Rook extends Piece{
 
   @Override
   public int[][] generateValidMovements(Board board, Tile fromThisTile, 
-                                        Tile toThisTile) {
+  Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
 
     // If identifying valid moves on a different board than what the rook
@@ -29,7 +29,8 @@ public class Rook extends Piece{
     return validMoves;
   }
 
-  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, int[][] validMoves) {
+  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, 
+  int[][] validMoves) {
     int increasingVerticalIndex = 1;
     int decreasingVerticalIndex = -1;
     int increasingHorizontalIndex = 1;

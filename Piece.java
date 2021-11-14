@@ -35,8 +35,7 @@ public abstract class Piece implements Movement {
     return this.isKilled;
   }
   @Override
-  public boolean isValidMovement(Game game, Tile fromThisTile, 
-                                 Tile toThisTile) {
+  public boolean isValidMovement(Game game, Tile fromThisTile, Tile toThisTile) {
     List<Board> allBoards = game.getAllBoards();
     for (int i = 0; i < allBoards.size(); i++) {
       int[][] possibleValidMoves = 
@@ -49,7 +48,7 @@ public abstract class Piece implements Movement {
     return false;
   }
   public boolean validVerticalMovementCheck(Board board, Tile fromThisTile, 
-                                            int[][] validMoves, int tileIncrementor) {
+  int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries
     if (fromThisTile.getRow() + tileIncrementor < 0 || 
         fromThisTile.getRow() + tileIncrementor >= board.getTiles().length) {
@@ -70,7 +69,7 @@ public abstract class Piece implements Movement {
     return !nextTileHasPieceOfSameColor(fromThisTile, nextTile);
   }
   public boolean validHorizontalMovementCheck(Board board, Tile fromThisTile, 
-                                              int[][] validMoves, int tileIncrementor) {
+  int[][] validMoves, int tileIncrementor) {
     // Check if out of board boundaries
     if (fromThisTile.getColumn() + tileIncrementor < 0 ||
         fromThisTile.getColumn() + tileIncrementor >= board.getTiles()[0].length) {
@@ -91,7 +90,7 @@ public abstract class Piece implements Movement {
     return !nextTileHasPieceOfSameColor(fromThisTile, nextTile);
   }
   public boolean validDiagonalMovement(Board board, Tile fromThisTile, 
-                                       int[][] validMoves, int incrementRow, int incrementColumn) {
+  int[][] validMoves, int incrementRow, int incrementColumn) {
     int toThisRow = fromThisTile.getRow() + incrementRow;
     int toThisColumn = fromThisTile.getColumn() + incrementColumn;
     // Check if out of board boundaries
@@ -131,7 +130,7 @@ public abstract class Piece implements Movement {
    * Helper method. Check if next tile has piece of opposite color
    */
   public boolean nextTileHasPieceOfOppositeColor(Tile fromThisTile, 
-                                                 Tile nextTile) {
+  Tile nextTile) {
     return (nextTile != null && nextTile.getPiece() != null &&
       nextTile.getPiece().getColor() != fromThisTile.getPiece().getColor())
       ? true 
@@ -146,7 +145,8 @@ public abstract class Piece implements Movement {
     /*
    * Sets valid move to be one tile forward, backward, left, and right.
    */
-  public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, int[][] validMoves, int numberOfTilesOffset) {
+  public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, 
+  int[][] validMoves, int numberOfTilesOffset) {
     Tile forwardTile = board.getTile(fromThisTile.getRow() - 1, 
                                      fromThisTile.getColumn());
     Tile backwardTile = board.getTile(fromThisTile.getRow() + 1, 

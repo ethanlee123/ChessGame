@@ -25,7 +25,8 @@ public class King extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, 
+  Tile toThisTile) {
     int[][] validMoves = 
       new int[board.getTiles().length][board.getTiles()[0].length];
     int[][] diagonalCoordinates = {{1, 1}, {-1, -1}, {1, -1}, {-1, 1}};

@@ -11,7 +11,8 @@ public class Queen extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, 
+  Tile toThisTile) {
     int[][] validMoves = 
       new int[board.getTiles().length][board.getTiles()[0].length];
 
@@ -32,7 +33,7 @@ public class Queen extends Piece{
   }
   // Helper method for generating valid movements.
   private void generateVerticalMovements(Board board, Tile fromThisTile, 
-                                         int[][] validMoves) {
+  int[][] validMoves) {
       int increasingVerticalIndex = 1;
       int decreasingVerticalIndex = -1;
       while (validVerticalMovementCheck(board, fromThisTile, validMoves, 
@@ -46,7 +47,7 @@ public class Queen extends Piece{
   }
   // Helper method for generating valid movements.
   private void generateHorizontalMovements(Board board, Tile fromThisTile, 
-                                           int[][] validMoves) {
+  int[][] validMoves) {
     int increasingHorizontalIndex = 1;
     int decreasingHorizontalIndex = -1;
 
@@ -61,7 +62,7 @@ public class Queen extends Piece{
   }
   // Helper method for generating valid movements.
   private void generateDiagonalMovements(Board board, Tile fromThisTile, 
-                                 int[][] validMoves) {
+  int[][] validMoves) {
     int startingRow = fromThisTile.getRow();
     int startingCol = fromThisTile.getColumn();
     // Check if piece can be moved to bottom right

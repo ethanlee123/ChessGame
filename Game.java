@@ -21,8 +21,8 @@ public abstract class Game {
   abstract void resignFromGame(Player... player);
   abstract Player nextPlayersTurn(Player currentPlayer);
   abstract List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate);
-  abstract public boolean isValidPieceMovement(Tile fromThisTile, Tile currentlySelectedTile);
-  abstract public boolean movePiece(Tile fromThisTile, Tile currentlySelectedTile);
+  abstract boolean isValidPieceMovement(Tile fromThisTile, Tile currentlySelectedTile);
+  abstract boolean movePiece(Tile fromThisTile, Tile currentlySelectedTile);
 
   /*
    * Add new player to list. Cannot have duplicate colors.

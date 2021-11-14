@@ -11,7 +11,8 @@ public class Knight extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, 
+  Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     int startingRow = fromThisTile.getRow();
     int startingColumn = fromThisTile.getColumn();

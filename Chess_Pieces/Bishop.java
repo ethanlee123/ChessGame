@@ -11,7 +11,8 @@ public class Bishop extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, 
+  Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
 
     // If identifying valid moves on a different board than what the rook
@@ -24,10 +25,10 @@ public class Bishop extends Piece{
       allowValidMovesOnSameBoard(board, fromThisTile, toThisTile, validMoves);
     }
 
-
     return validMoves;
   }
-  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
+  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, 
+  Tile toThisTile, int[][] validMoves) {
     int startingRow = fromThisTile.getRow();
     int startingCol = fromThisTile.getColumn();
     // Check if piece can be moved to bottom right
