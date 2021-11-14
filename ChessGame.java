@@ -51,13 +51,13 @@ public class ChessGame extends Game {
 
     if (fromThisTile == null || toThisTile == null || 
         fromThisTile == toThisTile || 
-        movingToTileWithsameColorPiece(fromThisTile, toThisTile)) {
+        movingToTileWithSameColorPiece(fromThisTile, toThisTile)) {
       return false;
     }
     Piece pieceToMove = fromThisTile.getPiece();
     return pieceToMove.isValidMovement(this, fromThisTile, toThisTile);
   }
-  private boolean movingToTileWithsameColorPiece(Tile fromThisTile, 
+  private boolean movingToTileWithSameColorPiece(Tile fromThisTile, 
   Tile toThisTile) {
     if ((fromThisTile.getPiece() != null && toThisTile.getPiece() != null) &&
     fromThisTile.getPiece().getColor() == toThisTile.getPiece().getColor()) {
