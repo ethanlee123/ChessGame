@@ -142,7 +142,7 @@ public abstract class Piece implements Movement {
     validDiagonalMovement(board, fromThisTile, validMoves, numberOfTilesOffset, -numberOfTilesOffset);
     validDiagonalMovement(board, fromThisTile, validMoves, -numberOfTilesOffset, numberOfTilesOffset);
   }
-    /*
+  /*
    * Sets valid move to be one tile forward, backward, left, and right.
    */
   public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, 
@@ -170,6 +170,36 @@ public abstract class Piece implements Movement {
     if (fromThisTile.getColumn() - numberOfTilesOffset >= 0 &&
         !nextTileHasPieceOfSameColor(fromThisTile, leftTile)) {
       validMoves[fromThisTile.getRow()][fromThisTile.getColumn() - numberOfTilesOffset] = 1;
+    }
+  }
+  /*
+   * Generates valid diagonal movements for the same board.
+   */
+  public void generateDiagonalMovements(Board board, Tile fromThisTile, 
+  int[][] validMoves) {
+    int startingRow = fromThisTile.getRow();
+    int startingCol = fromThisTile.getColumn();
+    // Check if piece can be moved to bottom right
+    for (int i = 1, j = 1; 
+      startingRow + i < validMoves.length && 
+      startingCol + j < validMoves[i].length; 
+      i++, j++) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to bottom left
+    for (int i = 1, j = -1; startingRow + i < validMoves.length && 
+      startingCol + j >= 0; i++, j--) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to top left
+    for (int i = -1, j = -1; startingRow + i >= 0 && startingCol + j >= 0; 
+      i--, j--) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
+    }
+    // Check if piece can be moved to top right
+    for (int i = -1, j = 1; startingRow + i >= 0 && 
+      startingCol + j < validMoves[startingRow + i].length; i--, j++) {
+      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
     }
   }
 }

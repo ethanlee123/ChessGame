@@ -60,32 +60,4 @@ public class Queen extends Piece{
       increasingHorizontalIndex++;
     }
   }
-  // Helper method for generating valid movements.
-  private void generateDiagonalMovements(Board board, Tile fromThisTile, 
-  int[][] validMoves) {
-    int startingRow = fromThisTile.getRow();
-    int startingCol = fromThisTile.getColumn();
-    // Check if piece can be moved to bottom right
-    for (int i = 1, j = 1; 
-      startingRow + i < validMoves.length && 
-      startingCol + j < validMoves[i].length; 
-      i++, j++) {
-      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
-    }
-    // Check if piece can be moved to bottom left
-    for (int i = 1, j = -1; startingRow + i < validMoves.length && 
-      startingCol + j >= 0; i++, j--) {
-      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
-    }
-    // Check if piece can be moved to top left
-    for (int i = -1, j = -1; startingRow + i >= 0 && startingCol + j >= 0; 
-      i--, j--) {
-      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
-    }
-    // Check if piece can be moved to top right
-    for (int i = -1, j = 1; startingRow + i >= 0 && 
-      startingCol + j < validMoves[startingRow + i].length; i--, j++) {
-      if (!validDiagonalMovement(board, fromThisTile, validMoves, i, j)) break;
-    }
-  }
 }
