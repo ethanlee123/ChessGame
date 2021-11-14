@@ -1,9 +1,7 @@
 package A00990753.Chess_Pieces;
 
 import A00990753.Board;
-import A00990753.ChessGame;
 import A00990753.ColorSide;
-import A00990753.Game;
 import A00990753.Piece;
 import A00990753.Tile;
 
@@ -24,19 +22,20 @@ public class Pawn extends Piece{
   }
 
   @Override
-  public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
+  public int[][] generateValidMovements(Board board, Tile fromThisTile, 
+  Tile toThisTile) {
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
+
     // If moving to a board which pawn is not currently on
     if (fromThisTile.getBoardId() != board.getBoardId()) {
-
-      if (isFirstMove && board.getBoardId() == 2) {
-        allowValidMovesOnBoardTwo(fromThisTile, validMoves);
+      if (isFirstMove) {
+        allowForwardMoveOnOtherBoard(fromThisTile, board, validMoves, 
+        board.getBoardId() - 1);
+      } else {
+        allowForwardMoveOnOtherBoard(fromThisTile, board, validMoves, 1);
       }
-      // validMoves[fro][] = 1;
-      allowForwardMoveOnOtherBoard(fromThisTile, board, validMoves);
-
     } else {
-      allowValidMovesOnBoardOne(board, fromThisTile, validMoves);
+      allowValidMovesOnSameBoard(board, fromThisTile, validMoves);
     }
     return validMoves;
   }
@@ -47,35 +46,31 @@ public class Pawn extends Piece{
     }
     return endRow;
   }
-  private void allowForwardMoveOnOtherBoard(Tile fromThisTile, Board board, int[][] validMoves) {
+  private void allowForwardMoveOnOtherBoard(Tile fromThisTile, Board board, 
+  int[][] validMoves, int numberOfTilesAhead) {
     int endRow = findForwardDirection(validMoves);
-    Tile oneTileAhead;
+    Tile tileAhead;
+
     // Set oneTileAhead by using endRow
     if (endRow == 0) {
-      oneTileAhead = board.getTile(
-        fromThisTile.getRow() + 1, fromThisTile.getColumn());
+      tileAhead = board.getTile(
+        fromThisTile.getRow() + numberOfTilesAhead, fromThisTile.getColumn());
     } else {
-      oneTileAhead = board.getTile(
-        fromThisTile.getRow() - 1, fromThisTile.getColumn());
+      tileAhead = board.getTile(
+        fromThisTile.getRow() - numberOfTilesAhead, fromThisTile.getColumn());
     }
-    if (oneTileAhead != null && oneTileAhead.getPiece() == null) {
-      validMoves[oneTileAhead.getRow()][oneTileAhead.getColumn()] = 1;
+    if (tileAhead != null && tileAhead.getPiece() == null) {
+      validMoves[tileAhead.getRow()][tileAhead.getColumn()] = 1;
     }
   }
-  private void allowValidMovesOnBoardTwo(Tile fromThisTile, 
-                                         int[][] validMoves) {
-      if (findForwardDirection(validMoves) == 0) {
-        validMoves[fromThisTile.getRow() + 1][fromThisTile.getColumn()] = 1;
-      } else {
-        validMoves[fromThisTile.getRow() - 1][fromThisTile.getColumn()] = 1;
-      }
-  }
-  private void allowValidMovesOnBoardOne(Board board, Tile fromThisTile, 
+
+  private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, 
   int[][] validMoves) {
     // Set endRow, used to check which way is forward
     int endRow = findForwardDirection(validMoves);
     Tile oneTileAhead;
     Tile twoTilesAhead;
+
     // Set oneTileAhead by using endRow
     if (endRow == 0) {
       oneTileAhead = board.getTile(
