@@ -137,11 +137,11 @@ public abstract class Piece implements Movement {
       ? true 
       : false;
   }
-  public void allowDiagonalMovesOnOtherBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
-    validDiagonalMovement(board, fromThisTile, validMoves, 1, 1);
-    validDiagonalMovement(board, fromThisTile, validMoves, -1, -1);
-    validDiagonalMovement(board, fromThisTile, validMoves, 1, -1);
-    validDiagonalMovement(board, fromThisTile, validMoves, -1, 1);
+  public void allowDiagonalMovesOnOtherBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves, int numberOfTilesOffset) {
+    validDiagonalMovement(board, fromThisTile, validMoves, numberOfTilesOffset, numberOfTilesOffset);
+    validDiagonalMovement(board, fromThisTile, validMoves, -numberOfTilesOffset, -numberOfTilesOffset);
+    validDiagonalMovement(board, fromThisTile, validMoves, numberOfTilesOffset, -numberOfTilesOffset);
+    validDiagonalMovement(board, fromThisTile, validMoves, -numberOfTilesOffset, numberOfTilesOffset);
   }
     /*
    * Sets valid move to be one tile forward, backward, left, and right.

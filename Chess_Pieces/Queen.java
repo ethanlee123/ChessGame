@@ -19,8 +19,10 @@ public class Queen extends Piece{
     // If identifying valid moves on a different board than what the rook
     // is currently on.
     if (fromThisTile.getBoardId() != board.getBoardId()) {
-      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves);
-      allowFBLRMovesOnOtherBoard(board, fromThisTile, validMoves);
+      int numberOfTilesOffset = 
+      Math.abs(fromThisTile.getBoardId() - board.getBoardId());
+      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves, numberOfTilesOffset);
+      allowFBLRMovesOnOtherBoard(board, fromThisTile, validMoves, numberOfTilesOffset);
     } else {
       generateVerticalMovements(board, fromThisTile, validMoves);
       generateHorizontalMovements(board, fromThisTile, validMoves);

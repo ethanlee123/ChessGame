@@ -18,7 +18,9 @@ public class Bishop extends Piece{
     // If identifying valid moves on a different board than what the rook
     // is currently on.
     if (fromThisTile.getBoardId() != board.getBoardId()) {
-      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves);
+      int numberOfTilesOffset = 
+      Math.abs(fromThisTile.getBoardId() - board.getBoardId());
+      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves, numberOfTilesOffset);
     } else {
       allowValidMovesOnSameBoard(board, fromThisTile, toThisTile, validMoves);
     }
