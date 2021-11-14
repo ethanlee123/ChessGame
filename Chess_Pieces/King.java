@@ -2,7 +2,6 @@ package A00990753.Chess_Pieces;
 
 import A00990753.Board;
 import A00990753.ColorSide;
-import A00990753.Game;
 import A00990753.Piece;
 import A00990753.Tile;
 

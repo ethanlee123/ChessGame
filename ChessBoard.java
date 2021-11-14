@@ -1,7 +1,5 @@
 package A00990753;
 
-import A00990753.Chess_Pieces.Pawn;
-
 public class ChessBoard extends Board{
 
   ChessBoard(int rows, int columns, int boardId) {
