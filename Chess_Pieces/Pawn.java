@@ -28,10 +28,13 @@ public class Pawn extends Piece{
     int[][] validMoves = new int[board.getTiles().length][board.getTiles()[0].length];
     // If moving to a board which pawn is not currently on
     if (fromThisTile.getBoardId() != board.getBoardId()) {
+
       if (isFirstMove && board.getBoardId() == 2) {
         allowValidMovesOnBoardTwo(fromThisTile, validMoves);
       }
-      allowYAxisMovement(fromThisTile, toThisTile, validMoves);
+      // validMoves[fro][] = 1;
+      allowForwardMoveOnOtherBoard(fromThisTile, board, validMoves);
+
     } else {
       allowValidMovesOnBoardOne(board, fromThisTile, validMoves);
     }
@@ -43,6 +46,21 @@ public class Pawn extends Piece{
       endRow = validMoves.length - 1;
     }
     return endRow;
+  }
+  private void allowForwardMoveOnOtherBoard(Tile fromThisTile, Board board, int[][] validMoves) {
+    int endRow = findForwardDirection(validMoves);
+    Tile oneTileAhead;
+    // Set oneTileAhead by using endRow
+    if (endRow == 0) {
+      oneTileAhead = board.getTile(
+        fromThisTile.getRow() + 1, fromThisTile.getColumn());
+    } else {
+      oneTileAhead = board.getTile(
+        fromThisTile.getRow() - 1, fromThisTile.getColumn());
+    }
+    if (oneTileAhead != null && oneTileAhead.getPiece() == null) {
+      validMoves[oneTileAhead.getRow()][oneTileAhead.getColumn()] = 1;
+    }
   }
   private void allowValidMovesOnBoardTwo(Tile fromThisTile, 
                                          int[][] validMoves) {
