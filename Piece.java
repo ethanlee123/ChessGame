@@ -137,12 +137,4 @@ public abstract class Piece implements Movement {
       ? true 
       : false;
   }
-  public void allowYAxisMovement(Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
-    // allow pawn to move directly above
-    for (int i = 0; i < ChessGame.getNumberOfBoards(); i++) {
-      if (i != fromThisTile.getBoardId()) {
-        validMoves[fromThisTile.getRow()][fromThisTile.getColumn()] = 1;
-      }
-    }
-}
 }
