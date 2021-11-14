@@ -146,7 +146,7 @@ public abstract class Piece implements Movement {
     /*
    * Sets valid move to be one tile forward, backward, left, and right.
    */
-  public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, int[][] validMoves) {
+  public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, int[][] validMoves, int numberOfTilesOffset) {
     Tile forwardTile = board.getTile(fromThisTile.getRow() - 1, 
                                      fromThisTile.getColumn());
     Tile backwardTile = board.getTile(fromThisTile.getRow() + 1, 
@@ -155,21 +155,21 @@ public abstract class Piece implements Movement {
                                      fromThisTile.getColumn() - 1);
     Tile rightTile = board.getTile(fromThisTile.getRow(), 
                                      fromThisTile.getColumn() + 1);
-    if (fromThisTile.getRow() + 1 <= 7 && 
+    if (fromThisTile.getRow() + numberOfTilesOffset <= 7 && 
         !nextTileHasPieceOfSameColor(fromThisTile, backwardTile)) {
-      validMoves[fromThisTile.getRow() + 1][fromThisTile.getColumn()] = 1;
+      validMoves[fromThisTile.getRow() + numberOfTilesOffset][fromThisTile.getColumn()] = 1;
     }
-    if (fromThisTile.getRow() - 1 >= 0 &&
+    if (fromThisTile.getRow() - numberOfTilesOffset >= 0 &&
         !nextTileHasPieceOfSameColor(fromThisTile, forwardTile)) {
-      validMoves[fromThisTile.getRow() - 1][fromThisTile.getColumn()] = 1;
+      validMoves[fromThisTile.getRow() - numberOfTilesOffset][fromThisTile.getColumn()] = 1;
     }
-    if (fromThisTile.getColumn() + 1 <= 7 &&
+    if (fromThisTile.getColumn() + numberOfTilesOffset <= 7 &&
         !nextTileHasPieceOfSameColor(fromThisTile, rightTile)) {
-      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() + 1] = 1;
+      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() + numberOfTilesOffset] = 1;
     }
-    if (fromThisTile.getColumn() - 1 >= 0 &&
+    if (fromThisTile.getColumn() - numberOfTilesOffset >= 0 &&
         !nextTileHasPieceOfSameColor(fromThisTile, leftTile)) {
-      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() - 1] = 1;
+      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() - numberOfTilesOffset] = 1;
     }
   }
 }

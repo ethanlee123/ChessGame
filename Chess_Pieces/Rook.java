@@ -19,7 +19,9 @@ public class Rook extends Piece{
     // If identifying valid moves on a different board than what the rook
     // is currently on.
     if (fromThisTile.getBoardId() != board.getBoardId()) {
-      allowFBLRMovesOnOtherBoard(board, fromThisTile, validMoves);
+      int numberOfTilesOffset = 
+        Math.abs(fromThisTile.getBoardId() - board.getBoardId());
+      allowFBLRMovesOnOtherBoard(board, fromThisTile, validMoves, numberOfTilesOffset);
     } else {
       allowValidMovesOnSameBoard(board, fromThisTile, validMoves);
     }
