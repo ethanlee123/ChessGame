@@ -49,7 +49,7 @@ public class ChessGame extends Game {
   @Override
   public boolean isValidPieceMovement(Tile fromThisTile, Tile toThisTile) {
 
-    if (fromThisTile == null || toThisTile == null) {
+    if (fromThisTile == null || toThisTile == null || fromThisTile == toThisTile) {
       return false;
     }
     Piece pieceToMove = fromThisTile.getPiece();
