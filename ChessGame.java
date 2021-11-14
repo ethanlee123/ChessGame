@@ -49,13 +49,22 @@ public class ChessGame extends Game {
   @Override
   public boolean isValidPieceMovement(Tile fromThisTile, Tile toThisTile) {
 
-    if (fromThisTile == null || toThisTile == null || fromThisTile == toThisTile) {
+    if (fromThisTile == null || toThisTile == null || 
+        fromThisTile == toThisTile || 
+        movingToTileWithsameColorPiece(fromThisTile, toThisTile)) {
       return false;
     }
     Piece pieceToMove = fromThisTile.getPiece();
     return pieceToMove.isValidMovement(this, fromThisTile, toThisTile);
   }
-
+  private boolean movingToTileWithsameColorPiece(Tile fromThisTile, 
+  Tile toThisTile) {
+    if ((fromThisTile.getPiece() != null && toThisTile.getPiece() != null) &&
+    fromThisTile.getPiece().getColor() == toThisTile.getPiece().getColor()) {
+      return true;
+    }
+    return false;
+  }
   @Override
   List<Board> createBoards(int rows, int columns, int numberOfBoardsToCreate) throws IllegalArgumentException {
     if (numberOfBoardsToCreate < 1) {
