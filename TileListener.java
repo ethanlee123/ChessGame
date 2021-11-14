@@ -2,7 +2,6 @@ package A00990753;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 class TileListener implements ActionListener {
   private final Board board;
@@ -13,7 +12,6 @@ class TileListener implements ActionListener {
   TileListener(ChessGui gui, Game chessGame) {
     this.chessGame = chessGame;
     this.board = chessGame.getBoardAt(0);
-    // this.board = board;
     this.allBoards = chessGame.getAllBoards();
   }
   
@@ -91,7 +89,7 @@ class TileListener implements ActionListener {
       for (int i = 0; i < possibleValidMoves.length; i++) {
         for (int j = 0; j < possibleValidMoves[i].length; j++) {
           if (possibleValidMoves[i][j] == 1) {
-            allBoards.get(k).getTile(i, j).setBackground(new Color(255, 127, 127));
+            allBoards.get(k).getTile(i, j).setBackground(new Color(254, 216, 177));
           }
         }
       }
