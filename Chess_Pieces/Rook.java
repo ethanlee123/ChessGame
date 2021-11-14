@@ -2,7 +2,6 @@ package A00990753.Chess_Pieces;
 
 import A00990753.Board;
 import A00990753.ColorSide;
-import A00990753.Game;
 import A00990753.Piece;
 import A00990753.Tile;
 
@@ -20,7 +19,6 @@ public class Rook extends Piece{
     // If identifying valid moves on a different board than what the rook
     // is currently on.
     if (fromThisTile.getBoardId() != board.getBoardId()) {
-      // allowYAxisMovement(fromThisTile, board, validMoves);
       allowFBLRMovement(board, fromThisTile, validMoves);
     } else {
       allowValidMovesOnSameBoard(board, fromThisTile, validMoves);
