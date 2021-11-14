@@ -26,12 +26,6 @@ public class Bishop extends Piece{
 
     return validMoves;
   }
-  private void allowDiagonalMovesOnOtherBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
-    validDiagonalMovement(board, fromThisTile, validMoves, 1, 1);
-    validDiagonalMovement(board, fromThisTile, validMoves, -1, -1);
-    validDiagonalMovement(board, fromThisTile, validMoves, 1, -1);
-    validDiagonalMovement(board, fromThisTile, validMoves, -1, 1);
-  }
   private void allowValidMovesOnSameBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
     int startingRow = fromThisTile.getRow();
     int startingCol = fromThisTile.getColumn();

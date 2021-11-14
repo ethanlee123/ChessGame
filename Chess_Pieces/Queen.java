@@ -15,9 +15,18 @@ public class Queen extends Piece{
   public int[][] generateValidMovements(Board board, Tile fromThisTile, Tile toThisTile) {
     int[][] validMoves = 
       new int[board.getTiles().length][board.getTiles()[0].length];
+
+    // If identifying valid moves on a different board than what the rook
+    // is currently on.
+    if (fromThisTile.getBoardId() != board.getBoardId()) {
+      allowDiagonalMovesOnOtherBoard(board, fromThisTile, toThisTile, validMoves);
+      allowFBLRMovesOnOtherBoard(board, fromThisTile, validMoves);
+    } else {
       generateVerticalMovements(board, fromThisTile, validMoves);
       generateHorizontalMovements(board, fromThisTile, validMoves);
       generateDiagonalMovements(board, fromThisTile, validMoves);
+    }
+
     return validMoves;
   }
   // Helper method for generating valid movements.

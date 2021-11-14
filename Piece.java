@@ -137,4 +137,39 @@ public abstract class Piece implements Movement {
       ? true 
       : false;
   }
+  public void allowDiagonalMovesOnOtherBoard(Board board, Tile fromThisTile, Tile toThisTile, int[][] validMoves) {
+    validDiagonalMovement(board, fromThisTile, validMoves, 1, 1);
+    validDiagonalMovement(board, fromThisTile, validMoves, -1, -1);
+    validDiagonalMovement(board, fromThisTile, validMoves, 1, -1);
+    validDiagonalMovement(board, fromThisTile, validMoves, -1, 1);
+  }
+    /*
+   * Sets valid move to be one tile forward, backward, left, and right.
+   */
+  public void allowFBLRMovesOnOtherBoard(Board board, Tile fromThisTile, int[][] validMoves) {
+    Tile forwardTile = board.getTile(fromThisTile.getRow() - 1, 
+                                     fromThisTile.getColumn());
+    Tile backwardTile = board.getTile(fromThisTile.getRow() + 1, 
+                                     fromThisTile.getColumn());
+    Tile leftTile = board.getTile(fromThisTile.getRow(), 
+                                     fromThisTile.getColumn() - 1);
+    Tile rightTile = board.getTile(fromThisTile.getRow(), 
+                                     fromThisTile.getColumn() + 1);
+    if (fromThisTile.getRow() + 1 <= 7 && 
+        !nextTileHasPieceOfSameColor(fromThisTile, backwardTile)) {
+      validMoves[fromThisTile.getRow() + 1][fromThisTile.getColumn()] = 1;
+    }
+    if (fromThisTile.getRow() - 1 >= 0 &&
+        !nextTileHasPieceOfSameColor(fromThisTile, forwardTile)) {
+      validMoves[fromThisTile.getRow() - 1][fromThisTile.getColumn()] = 1;
+    }
+    if (fromThisTile.getColumn() + 1 <= 7 &&
+        !nextTileHasPieceOfSameColor(fromThisTile, rightTile)) {
+      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() + 1] = 1;
+    }
+    if (fromThisTile.getColumn() - 1 >= 0 &&
+        !nextTileHasPieceOfSameColor(fromThisTile, leftTile)) {
+      validMoves[fromThisTile.getRow()][fromThisTile.getColumn() - 1] = 1;
+    }
+  }
 }
